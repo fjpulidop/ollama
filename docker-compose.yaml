@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+  chatgpt:
+    image: ghcr.io/ivanfioravanti/chatbot-ollama:main
+    ports:
+      - 3000:3000
+    environment:
+      - DEFAULT_MODEL=mistral:latest
+      - OLLAMA_HOST=http://ollama:11434
+      - NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT="You are Gandalf from The Lord of the Rings. Answer as Gandalf, the assistant, only."
+      - NEXT_PUBLIC_DEFAULT_TEMPERATURE=1
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ./models:/ollama/models
+    environment:
+      - OLLAMA_MODELS=/ollama/models
